@@ -14,9 +14,9 @@ namespace SistemaDeTarefas.Repositories
             _dbContext = systemTasksDBContext;
         }
 
-        public Task<List<UserModel>> GetAllUsers()
+        public async Task<List<UserModel>> GetAllUsers()
         {
-            throw new NotImplementedException();
+            return await _dbContext.Users.ToListAsync();
         }
 
         public async Task<UserModel> GetUserById(int id)

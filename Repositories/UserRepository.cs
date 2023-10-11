@@ -29,9 +29,12 @@ namespace SistemaDeTarefas.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<UserModel> CreateUser(UserModel user)
+        public async Task<UserModel> CreateUser(UserModel user)
         {
-            throw new NotImplementedException();
+            _dbContext.Users.Add(user);
+            _dbContext.SaveChanges();
+
+            return user;
         }
 
         public Task<bool> DeleteUser(int id)

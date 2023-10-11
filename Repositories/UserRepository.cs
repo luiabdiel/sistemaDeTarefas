@@ -50,9 +50,19 @@ namespace SistemaDeTarefas.Repositories
             return user;
         }
 
-        public Task<bool> DeleteUser(int id)
+        public async Task<bool> DeleteUser(int id)
         {
-            throw new NotImplementedException();
+            UserModel userById = await GetUserById(id);
+
+            if (userById == null)
+            {
+                throw new Exception($"UserId: {userById} not found");
+            }
+
+            _dbContext.Users.Remove(userById);
+            _dbContext.SaveChanges();
+
+            return true;
         }
     }
 }

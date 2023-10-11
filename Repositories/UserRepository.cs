@@ -24,9 +24,22 @@ namespace SistemaDeTarefas.Repositories
             return await _dbContext.Users.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public Task<UserModel> UpdateUser(UserModel user, int id)
+        public async Task<UserModel> UpdateUser(UserModel user, int id)
         {
-            throw new NotImplementedException();
+            UserModel userById = await GetUserById(id);
+
+            if(userById == null)
+            {
+                throw new Exception($"UserId: {userById} not found");
+            }
+
+            userById.Name = user.Name;
+            userById.Email = user.Email;
+
+            _dbContext.Users.Update(userById);
+            _dbContext.SaveChanges();
+
+            return userById;
         }
 
         public async Task<UserModel> CreateUser(UserModel user)

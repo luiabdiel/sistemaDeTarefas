@@ -37,15 +37,15 @@ namespace SistemaDeTarefas.Repositories
             userById.Email = user.Email;
 
             _dbContext.Users.Update(userById);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
 
             return userById;
         }
 
         public async Task<UserModel> CreateUser(UserModel user)
         {
-            _dbContext.Users.Add(user);
-            _dbContext.SaveChanges();
+            await _dbContext.Users.AddAsync(user);
+            await _dbContext.SaveChangesAsync();
 
             return user;
         }
@@ -60,7 +60,7 @@ namespace SistemaDeTarefas.Repositories
             }
 
             _dbContext.Users.Remove(userById);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
 
             return true;
         }
